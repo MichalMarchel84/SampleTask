@@ -3,6 +3,7 @@ package service;
 import dao.UserDao;
 import model.User;
 
+import javax.security.auth.login.LoginException;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService{
@@ -11,19 +12,23 @@ public class UserServiceImpl implements UserService{
     private final Object createUserLock = new Object();
 
     @Override
-    public String login(String userName, String password) {
+    public User login(String userName, String password) throws LoginException {
         Optional<User> user = userDao.findByUserName(userName);
         if(user.isPresent()){
             if(user.get().getPassword().equals(password)){
-                return null;
+                return user.get();
             }
-            return "Wrong password";
+            throw new LoginException("Wrong password");
         }
-        return "User not found";
+        throw new LoginException("User not found");
     }
 
     @Override
     public String createUser(User user) {
+        if(user.getUserName() == null) return "username missing";
+        if(user.getPassword() == null) return "password missing";
+        if(user.getPermission() == null) return "permission missing";
+        if(user.getReadOnly() == null) return "readonly missing";
         synchronized (createUserLock) {
             Optional<User> uo = userDao.findByUserName(user.getUserName());
             if (uo.isEmpty()) {
