@@ -1,6 +1,6 @@
-#Sample Task
+# Sample Task
 
-##Technology
+## Technology
 As task description forbids using frameworks, application was created
 using servlet technology. It is configured to use MySQL database, 
 however, it can be altered easily by modifying context.xml and pom.xml. 
@@ -8,7 +8,7 @@ As it was mentioned that front-end is not to be prepared, output is generated
 in JSON format. Lombok @Data annotation was used to hide 
 getters/setters/constructors at BlogEntry and User entities (for better readability).
 
-##Conception
+## Conception
 I assumed that - as the task is only meant for evaluation purposes - cases 
 which are not covered by description (or unclear) can be implemented according 
 to my own conception without prior consultation. Therefore, I made the following
@@ -27,7 +27,7 @@ assumptions:
   permission=superuser and readonly=yes may be authorized to perform some operations (like 
   blocking/unblocking other users) but won't be able to change blog content.
   
-##Structure
+## Structure
 
 Project structure is typical for Maven project. Program core is organized as follows:
 
