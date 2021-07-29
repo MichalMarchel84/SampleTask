@@ -21,6 +21,8 @@ public class BlogServiceImpl implements BlogService{
         if(entry.getText() == null) return "text missing";
         if(user.getReadOnly().equalsIgnoreCase("yes")) return "Read only user - creating not allowed";
         entry.setUserId(user.getUserId());
+
+        //If 0 rows were affected by query, informing about failure of operation
         if(blogDao.createEntry(entry) == 0) return "Failed to create entry";
         return null;
     }
@@ -29,6 +31,8 @@ public class BlogServiceImpl implements BlogService{
     public String deleteEntry(int id, User user) {
         if(user == null) return "Not logged in";
         if(user.getReadOnly().equalsIgnoreCase("yes")) return "Read only user - deleting not allowed";
+
+        //If 0 rows were affected by query, informing about failure of operation
         if(blogDao.deleteEntry(id) == 0) return "Failed to delete entry";
         return null;
     }
